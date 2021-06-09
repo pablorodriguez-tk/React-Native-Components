@@ -1,46 +1,37 @@
 import React from 'react';
 import {FlatList, Text, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import Icon from 'react-native-vector-icons/Ionicons';
+import {FlatListMenuItem} from '../components/FlatListMenuItem';
+import {MenuItem} from '../interfaces/appInterfaces';
 import {styles} from '../theme/appTheme';
 
-interface MenuItem {
-  name: string;
-  icon: string;
-  components: string;
-}
-
-const menuItems = [
+const menuItems: MenuItem[] = [
   {
     name: 'Animation 101',
     icon: 'cube-outline',
-    components: 'Animatio101Screen',
+    component: 'Animation101Screen',
   },
   {
     name: 'Animation 102',
     icon: 'albums-outline',
-    components: 'Animatio102Screen',
+    component: 'Animation102Screen',
   },
 ];
 
 export const HomeScreen = () => {
   const {top} = useSafeAreaInsets();
 
-  const renderMenuItems = (menuItem: MenuItem) => {
+  const renderListHeader = () => {
     return (
-      <View>
-        <Text>
-          {menuItem.name} - {menuItem.icon}
-        </Text>
+      <View style={{marginTop: top + 20, marginBottom: 20}}>
+        <Text style={styles.title}>Menu Options</Text>
       </View>
     );
   };
 
-  const renderListHeader = () => {
+  const itemSeparator = () => {
     return (
-      <View style={{marginTop: top + 20}}>
-        <Text style={styles.title}>Menu Options</Text>
-      </View>
+      <View style={{borderBottomWidth: 1, opacity: 0.4, marginVertical: 5}} />
     );
   };
 
@@ -48,10 +39,10 @@ export const HomeScreen = () => {
     <View style={{flex: 1, ...styles.globalMargin}}>
       <FlatList
         data={menuItems}
-        renderItem={({item}) => renderMenuItems(item)}
+        renderItem={({item}) => <FlatListMenuItem menuItem={item} />}
         keyExtractor={item => item.name}
-        ListHeaderComponent={() => renderListHeader()}
-        ItemSeparatorComponent={() => <Text>_________</Text>}
+        ListHeaderComponent={renderListHeader}
+        ItemSeparatorComponent={itemSeparator}
       />
     </View>
   );
