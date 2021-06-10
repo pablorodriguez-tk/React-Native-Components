@@ -27,8 +27,13 @@ export const menuItems: MenuItem[] = [
     component: 'TextInputScreen',
   },
   {
-    name: 'Pull To Refresh Screen',
+    name: 'Pull To Refresh',
     icon: 'refresh-outline',
     component: 'PullToRefreshScreen',
+  },
+  {
+    name: 'Section Lis',
+    icon: 'list-outline',
+    component: 'CustomSectionListScreen',
   },
 ];
