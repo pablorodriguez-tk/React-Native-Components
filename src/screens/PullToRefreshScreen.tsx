@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
+import {useContext} from 'react';
 import {RefreshControl, ScrollView, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {HeaderTitle} from '../components/HeaderTitle';
+import {ThemeContext} from '../context/themeContext/ThemeContext';
 import {styles} from '../theme/appTheme';
 
 export const PullToRefreshScreen = () => {
@@ -16,6 +18,10 @@ export const PullToRefreshScreen = () => {
       setData('Hola mundo');
     }, 3000);
   };
+  const {
+    theme: {colors, dividerColor, dark},
+  } = useContext(ThemeContext);
+
   return (
     <ScrollView
       style={{marginTop: refreshing ? top : 0}} //Solo IOS
@@ -24,12 +30,12 @@ export const PullToRefreshScreen = () => {
           refreshing={refreshing}
           onRefresh={onRefresh}
           progressViewOffset={10}
-          progressBackgroundColor="#5856D6"
-          colors={['white', 'red', 'orange']}
+          progressBackgroundColor={dividerColor}
+          colors={[colors.text]}
           tintColor="white"
           style={{backgroundColor: '#5856D6'}} //Solo IOS
           title="Refreshing" //Solo IOS
-          titleColor="white" //Solo IOS
+          titleColor={dark ? 'white' : 'black'} //Solo IOS
         />
       }>
       <View style={styles.globalMargin}>
